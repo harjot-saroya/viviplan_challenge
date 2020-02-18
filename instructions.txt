@@ -55,7 +55,3 @@ It should produce an organized sheet with labelled columns that details:
 Rank, Company Name, Organization Name, Location, General Description.
 
 Note that you also need to click on the link for each advisor to get to a 2nd page that details some of the above columns.
-
-Regards, 
-Seyon
-
