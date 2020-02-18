@@ -1,0 +1,61 @@
+
+Here is the next stage of the interview. After successful completion of this stage, you will be invited to a phone screen to talk more about your background and you'll have the opportunity to learn more about the company and myself.
+
+A successful candidate for the back-end engineering intern role will demonstrate:
+
+1) Problem-solving, critical thinking ability and the ability to learn and ship code quickly. 
+2) An ability to confidently work with numbers and mathematical concepts 
+3) A clear understanding of certain computer-science and web fundamentals (REST, Databases, simple data structures)
+
+Please complete the following questions. Use repl.it or another online environment to write your code 
+and share a link below each question.
+
+1. Imagine you're rolling two dice.
+
+Dice 1 has x sides where each side has labels 1,2... x 
+Dice 2 has y sides where each side has labels 1,2... y
+
+When you roll both the dice and add the numbers you get a sum.
+
+The target sum we're interested in is 12
+
+The number of ways to get the sum 12 depends on the values of x and y.
+
+For example, if Dice 1 has 7 sides (x = 7) and Dice 2 has 20 sides (y=20) 
+then there are 7 ways to get the sum 12:
+
+1 + 11 = 12 
+2 + 10 = 12 
+3 + 9 = 12 
+4 + 8 = 12 
+5 + 7 = 12 
+6 + 6 = 12 
+7 + 5 = 12
+
+Write a program that will ask the user for the number of sides on dice 1 (x) and the number of sides on dice 2 (y) 
+and will output the number of ways the dice can be rolled to get the sum 12
+
+Please take some time to also consider and think about edge cases.
+
+2. Write a program that defines the following equations:
+
+a) Present Value of Annuity Due: https://financeformulas.net/Present_Value_of_Annuity_Due.html 
+b) Future Value of Annuity Due: https://financeformulas.net/Future-Value-of-Annuity-Due.html 
+c) Annuity Due Payment: https://financeformulas.net/Annuity-Due-Payment-from-Present-Value.html
+
+After creating these equations, ask the user which equation they would like to use and allow them 
+to type "a", "b" or "c".
+
+After the user types this and presses enter, prompt them for the corresponding inputs needed to solve the equation and output the calculated answer.
+
+3. Write a script that is able to scrape the results from the following URL: https://www.wealthprofessional.ca/special-reports/top-50/top-50-advisors-2018/253632
+
+It should produce an organized sheet with labelled columns that details:
+
+Rank, Company Name, Organization Name, Location, General Description.
+
+Note that you also need to click on the link for each advisor to get to a 2nd page that details some of the above columns.
+
+Regards, 
+Seyon
+
