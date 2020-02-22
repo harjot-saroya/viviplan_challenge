@@ -8,6 +8,26 @@ import progressbar
 import requests
 import time
 import csv
+import re
+
+
+def cleaner(word):
+    '''
+    (str)->str
+
+    This function takes in a raw string that contains html tags and uses 
+    regex to clean the string for easier viewing
+    '''
+    parser = re.compile(r'<.*?>')
+    clean1 = parser.sub('', word)
+    clean2 = re.sub(r'\r\n', '', clean1)
+    clean3 = re.sub(r'\n', '', clean2)
+    clean4 = re.sub(r'\xa0', '', clean3)
+    clean5 = re.sub(r'   .*?', '', clean4)
+    clean6 = re.sub(r'&amp', '', clean5)
+
+    return clean6
+
 
 # IMPORTANT: Set driver to your computer's chromedriver
 driver = webdriver.Chrome('/Users/harjo/Downloads/chromedriver')
@@ -75,6 +95,7 @@ for link in data['info_link']:
         driver.execute_script("arguments[0].click();", webelem)
     except NoSuchElementException:
         time.sleep(1)
+    parser = re.compile(r'<.*?>')
     new_link = driver.current_url
     page3 = requests.get(new_link)
     soup3 = BeautifulSoup(page3.content, 'html.parser')
@@ -83,28 +104,36 @@ for link in data['info_link']:
     c2 = conv.split('<br/>')
     # Some edge cases based on the website's page format I discovered
     if c2[2][4:] == '':
-        data['Location'].append(c2[1][4:])
+        clean = cleaner(c2[2])
+        data['Location'].append(clean)
     elif c2[2] == '\\n':
-        data['Location'].append(c2[1][4:])
+        clean = cleaner(c2[1])
+        data['Location'].append(clean)
     elif len(c2[2]) > 30:
-        ind = c2[2].index('<')
-        data['Location'].append(c2[2][4:ind])
+        clean = cleaner(c2[2])
+        data['Location'].append(clean)
     else:
-        data['Location'].append(c2[2][4:])
-    data['Organization Name'].append(c2[1][4:-9])
+        clean = cleaner(c2[2])
+        data['Location'].append(clean)
+    clean = cleaner(c2[1])
+    data['Organization Name'].append(clean)
     if len(c2) < 5:
-        data['Description'].append(c2[2][23:-12])
-        ind = c2[2].find('<')
+        clean = cleaner(c2[2])
+        if len(clean) < 5:
+            clean = cleaner(c2[3])
+        data['Description'].append(clean)
     else:
-        data['Description'].append(c2[4][4:])
+        clean = cleaner(c2[4])
+        if len(clean) < 5:
+            clean = cleaner(c2[3])
+        data['Description'].append(clean)
     count += 1
 bar.finish()
-
 # Write collected data to csv
 bar = progressbar.ProgressBar(maxval=50, widgets=[progressbar.Bar(
     '=', '[', ']'), ' ', progressbar.Percentage()])
 print('Writing data to csv...')
-with open('data.csv', 'wb') as csvfile:
+with open('data.csv', 'w') as csvfile:
     filewriter = csv.writer(csvfile, delimiter='*',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
     filewriter.writerow(['Name', 'Rank', 'Organization Name',
