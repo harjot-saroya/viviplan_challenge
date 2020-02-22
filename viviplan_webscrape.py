@@ -115,17 +115,25 @@ for link in data['info_link']:
     else:
         clean = cleaner(c2[2])
         data['Location'].append(clean)
-    clean = cleaner(c2[1])
-    data['Organization Name'].append(clean)
+
     if len(c2) < 5:
         clean = cleaner(c2[2])
+        clean2 = cleaner(c2[0])
+        clean3 = cleaner(c2[1])
+        data['Organization Name'].append(clean2)
+        data['Location'][count] = clean3
         if len(clean) < 5:
             clean = cleaner(c2[3])
+
         data['Description'].append(clean)
     else:
         clean = cleaner(c2[4])
+        clean2 = cleaner(c2[1])
+        clean3 = cleaner(c2[0])
+        data['Organization Name'].append(clean2)
         if len(clean) < 5:
             clean = cleaner(c2[3])
+            data['Location'][count] = clean
         data['Description'].append(clean)
     count += 1
 bar.finish()
@@ -134,7 +142,7 @@ bar = progressbar.ProgressBar(maxval=50, widgets=[progressbar.Bar(
     '=', '[', ']'), ' ', progressbar.Percentage()])
 print('Writing data to csv...')
 with open('data.csv', 'w') as csvfile:
-    filewriter = csv.writer(csvfile, delimiter='*',
+    filewriter = csv.writer(csvfile, delimiter=',',
                             quotechar='|', quoting=csv.QUOTE_MINIMAL)
     filewriter.writerow(['Name', 'Rank', 'Organization Name',
                          'Location', 'Company', 'Description'])
